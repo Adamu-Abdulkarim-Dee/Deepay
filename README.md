@@ -15,6 +15,8 @@ balance based on employee's specific salary role within the organization.
 # Language and libraries:
 
 *Python and Django: For backend
+
 *Django rest framwork: for creating web api
+
 *Python OpenCV: for comparing the given fingerprint and the one stored in database
 
