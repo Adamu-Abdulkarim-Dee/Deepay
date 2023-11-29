@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="number" name="amount">
+        <input type="number" name="account_number">
+        <input type="file" name="finger_print">
+        <input type="number" name="pin">
+        <button type="submit">create</button>
+    </form>
+</body>
+</html>
