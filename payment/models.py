@@ -9,7 +9,7 @@ class Account(models.Model):
     account_number = models.BigIntegerField(unique=True)
     account_balance = models.DecimalField(max_digits=12, decimal_places=6, default=0)
     account_id = models.CharField(max_length=15, unique=True)
-    finger_print = models.ImageField()
+    finger_print = models.ImageField(default='demo.png')
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     account_status = models.CharField(max_length=50, choices=ACCOUNT_STATUS)
