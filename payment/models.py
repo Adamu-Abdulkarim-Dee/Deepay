@@ -37,7 +37,6 @@ class Withdraw(models.Model):
     debited = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='debited_user')
     amount = models.DecimalField(max_digits=50, decimal_places=6)
     account_number = models.BigIntegerField()
-    finger_print = models.ImageField()
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     status = models.CharField(max_length=50, choices=STATUS)
