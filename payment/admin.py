@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Account, Transaction
+from .models import Account, Withdraw
 
 class TransactionalAdmin(admin.ModelAdmin):
     list_display = (
         "sender", "receiver", "account_number", "amount", "reference",
         "status"
     )
-admin.site.register(Transaction)
+admin.site.register(Withdraw)
 
 class AccountAdmin(admin.ModelAdmin):
     list_display = (

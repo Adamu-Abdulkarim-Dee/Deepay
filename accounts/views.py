@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
@@ -14,6 +15,11 @@ from rest_framework.authtoken.models import Token
 
 def home(request):
     return render(request, 'Home.html')
+@api_view(['GET'])
+def get_all(request):
+    user = User.objects.all()
+    serializer = UserRegistrationSerializer(user, many=True)
+    return Response(serializer.data)
 
 class RegistrationView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -21,47 +27,50 @@ class RegistrationView(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
 
 class LoginSerializerView(ObtainAuthToken):
+
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data, context={'request':request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
         return Response({'token': token.key, 'user_id': user.pk})
-
-class BankVerificationNumberSerializerView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
-    def post(self, request, format=None):
+        
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def validate_bvn_number(request):
+    if request.method == 'POST':
         serializer = BankVerificationNumberSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class NationalIdentificationNumberSerializerView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
-    def post(self, request, format=None):
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def validate_nin_number(request):
+    if request.method == 'POST':
         serializer = NationalIdentificationNumberSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class BasicInformationSerializerView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
-    def post(self, request, format=None):
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def create_basic_information(request):
+    if request.method == 'POST':
         serializer = BasicInformationSerializer(data=request.data)
         if serializer.is_valid():
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class NextOfKinSerializerView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
-    def post(self, request, format=None):
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def create_next_of_king(request):
+    if request.method == 'POST':
         serializer = NextOfKinSerializer(data=request.data)
         if serializer.is_valid():
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

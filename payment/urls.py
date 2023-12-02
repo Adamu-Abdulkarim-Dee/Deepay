@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('transfer', views.transfer),
-    path('TransactionalView', views.TransactionalView.as_view()),
-    path('AccountView', views.AccountView.as_view()),
+    path('create_withdraw', views.create_withdraw),
+    path('get_debited_transaction', views.get_debited_transaction),
+    path('get_credited_transaction', views.get_credited_transaction),
+    path('account', views.account),
 ]

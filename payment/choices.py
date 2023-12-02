@@ -7,8 +7,9 @@ ACCOUNT_STATUS = (
 
 #Used for Transactional Status
 STATUS = (
-    ('Success', 'Success'),
-    ('Failed', 'Failed')
+    ('SUCCESS(00)', 'SUCCESS(00)'),
+    ('FAILED(01)', 'FAILED(01)'),
+    ('REVERSED(02)', 'REVERSED(02)')
 )
 
 #Used for Complaint model
