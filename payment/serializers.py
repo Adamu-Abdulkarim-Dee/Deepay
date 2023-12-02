@@ -71,7 +71,7 @@ class WithdrawSerializer(serializers.ModelSerializer):
                 Withdraw.objects.create(
                     credited=credited_account.user, receiver=debited_account.user, amount=amount, pin=pin,
                     first_name=debited_account.first_name, last_name=debited_account.last_name,
-                    status='SUCCESS(00)', finger_print=debited_finger_print, account_number=account_number
+                    status='SUCCESS(00)', account_number=account_number
                 )
             else:
                 raise serializers.ValidationError({"detail": "INSUFFICIENT_FUNDS_05"})
