@@ -7,8 +7,7 @@ from .choices import STATE, RELATIONSHIP
 class User(AbstractUser):
     username = models.CharField(max_length=15, unique=True)
     email = models.EmailField(unique=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    full_name = models.CharField(max_length=150)
     phone_number = models.CharField(max_length=15)
     is_developer = models.BooleanField(default=False)
     is_organization = models.BooleanField(default=False)

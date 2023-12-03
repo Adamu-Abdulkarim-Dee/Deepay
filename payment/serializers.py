@@ -1,6 +1,14 @@
 from rest_framework import serializers
-from .models import Withdraw, Account
+from .models import Withdraw, Account, ExternalTransaction
 from rest_framework.fields import CurrentUserDefault
+
+class ExternalTransactioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExternalTransaction
+        fields = "__all__"
+
+        def validated_data(self, validated_data):
+            pass
 
 class WithdrawSerializer(serializers.ModelSerializer):
     class Meta:

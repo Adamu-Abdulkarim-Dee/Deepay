@@ -16,8 +16,7 @@ def generate_account_number():
 def create_account(instance, created, sender, **kwargs):
     if created:
         account_number = generate_account_number()
-        first_name = instance.first_name
-        last_name = instance.last_name
+        account_name = instance.full_name
 
         qr = qrcode.QRCode(
             version=1,
@@ -45,7 +44,6 @@ def create_account(instance, created, sender, **kwargs):
 
         Account.objects.create(
             user=instance, account_number=account_number,
-            first_name=first_name, last_name=last_name,
-            account_status='ACTIVE', account_balance=0, pin=0,
-            qr_code=os.path.relpath(img_path, settings.MEDIA_ROOT)
+            account_name=account_name,account_status='ACTIVE', 
+            account_balance=0, pin=0, qr_code=os.path.relpath(img_path, settings.MEDIA_ROOT)
         )
