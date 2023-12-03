@@ -30,14 +30,14 @@ def account(request):
 @permission_classes([permissions.IsAuthenticated])
 def get_sender_transaction(request):
     if request.method == 'GET':
-        credited_transactions = Withdraw.objects.filter(credited=request.user.id)
-        serializer = WithdrawSerializer(credited_transactions, many=True)
+        sender_transactions = Withdraw.objects.filter(sender=request.user.id)
+        serializer = WithdrawSerializer(sender_transactions, many=True)
         return Response(serializer.data)
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
 def get_receiver_transaction(request):
     if request.method == 'GET':
-        debited_transactions = Withdraw.objects.filter(debited=request.user.id)
-        serializer = WithdrawSerializer(debited_transactions, many=True)
+        receive_transactions = Withdraw.objects.filter(receiver=request.user.id)
+        serializer = WithdrawSerializer(receive_transactions, many=True)
         return Response(serializer.data)
