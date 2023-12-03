@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Account, Withdraw
-from .serializers import WithdrawSerializer, AccountSerializer, CommissionToAccountTransactionSerializer
+from .serializers import WithdrawSerializer, AccountSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.response import Response
@@ -18,16 +18,6 @@ def create_withdraw(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-@permission_classes([permissions.IsAuthenticated])
-def create_commission_to_account_transaction(request):
-    if request.method == 'POST':
-        serializer = CommissionToAccountTransactionSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
 def account(request):
@@ -38,7 +28,7 @@ def account(request):
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
-def get_credited_transaction(request):
+def get_sender_transaction(request):
     if request.method == 'GET':
         credited_transactions = Withdraw.objects.filter(credited=request.user.id)
         serializer = WithdrawSerializer(credited_transactions, many=True)
@@ -46,7 +36,7 @@ def get_credited_transaction(request):
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
-def get_debited_transaction(request):
+def get_receiver_transaction(request):
     if request.method == 'GET':
         debited_transactions = Withdraw.objects.filter(debited=request.user.id)
         serializer = WithdrawSerializer(debited_transactions, many=True)

@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('create_withdraw', views.create_withdraw),
-    path('get_debited_transaction', views.get_debited_transaction),
-    path('get_credited_transaction', views.get_credited_transaction),
+    path('get_receiver_transaction', views.get_receiver_transaction),
+    path('get_sender_transaction', views.get_sender_transaction),
     path('account', views.account),
 ]
