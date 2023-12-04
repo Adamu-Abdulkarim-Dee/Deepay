@@ -1,22 +1,24 @@
-# Deepay for point of sale
+# Deepay
+ Deepay is a mobile application that facilitates seamless and secure payments between users and service providers through QR code technology.
 
-Deepay is a machines designed to facilitate cash withdrawls through a secure process.
-User can access their funds by utilizing both their fingerprint and a personal identification
-number (PIN). This innovative combination of biometric authentication and PIN verification ensures a
-reliable and secure method for individuals to retrive their money conviniently.
 
-# Deepay for employee attendance
+# **User Registration**:
+   - Users need to create an account on the app, providing necessary information like name, phone number email, and password.
+   - Users download the DeePay app from the App Store or Google Play Store.
 
-Deepay serves as a solution for employee attendance within organization.
-The system involves scanning an employee's fingerprint as a means of authentication.
-Following this authentication, the system automatically credits the employee's account
-balance based on employee's specific salary role within the organization.
+# Profile Management:
+  - Users can manage their account, link bank accounts or payment methods, and set preferences.
+
+# QR Code Scan:
+  - When a user wants to pay for a service, the app would allow him to scan a unique qrcode.
+  - The QR code may include details such as the recipient's account number, and a unique identifier.
+
+# Transaction History:
+   - Users can view a history of their transactions, including details such as date, amount, and recipient.
+   - Users receive real-time notifications for successful transactions, ensuring transparency and security.
 
 # Language and libraries:
-
-* Python and Django: For backend
-
-* Django rest framwork: for creating web api
-
-* Python OpenCV: for comparing the given fingerprint and the one stored in database
+   * Python and Django: For backend.
+   * Django rest framwork: for creating web api.
+   * React Native: for creating mobile app.
 

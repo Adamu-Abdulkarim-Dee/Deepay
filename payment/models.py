@@ -38,7 +38,7 @@ class Withdraw(models.Model):
 class ExternalTransaction(models.Model):
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     account_number = models.BigIntegerField()
-    sender_account_number = models.BigAutoField()
+    sender_account_number = models.BigIntegerField()
     sender_full_name = models.CharField(max_length=150)
     sender_bank_name = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=50, decimal_places=6)

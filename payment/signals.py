@@ -6,7 +6,9 @@ import random
 import  string
 import os
 import qrcode
-from PIL import Image, ImageDraw, ImageFont
+from qrcode.image.styles.moduledrawers.pil import RoundedModuleDrawer
+from qrcode.image.styledpil import StyledPilImage
+from qrcode.image.styles.colormasks import RadialGradiantColorMask
 
 def generate_account_number():
     logic = '88' + ''.join(random.choices(string.digits, k=8))
@@ -19,22 +21,20 @@ def create_account(instance, created, sender, **kwargs):
         account_name = instance.full_name
 
         qr = qrcode.QRCode(
-            version=1,
+            version=20,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
             box_size=10,
-            border=4
+            border=4,
         )
+
+        module_drawer = RoundedModuleDrawer()
+        color_mask = RadialGradiantColorMask()
+
         qr.add_data(f"{account_number}")
         qr.make(fit=True)
-        qr_img = qr.make_image(fill_color='black', back_color='white')
-
-        draw = ImageDraw.Draw(qr_img)
-        text = account_number
-        font = ImageFont.load_default()
-        text_width, text_height = draw.textsize(text, font)
-        qr_width, qr_height = qr_img.size
-        text_position = (( qr_width - text_width ) // 2, ( qr_height - text_height ) // 2)
-        draw.text(text_position, text, fill='black', font=font)
+        qr_img = qr.make_image(image_factory=StyledPilImage,
+            fill_color='black', back_color='white',
+            module_drawer=module_drawer, color_mask=color_mask)
 
         img_dir = os.path.join(settings.MEDIA_ROOT, 'qrcode')
         os.makedirs(img_dir, exist_ok=True)
